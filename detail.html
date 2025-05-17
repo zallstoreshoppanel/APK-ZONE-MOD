@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Detail APK</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #2c3e50, #34495e);
+      color: #ecf0f1;
+      padding: 40px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-sizing: border-box;
+    }
+    .detail-card {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 30px 40px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+    .apk-icon {
+      width: 120px;
+      height: 120px;
+      border-radius: 20%;
+      object-fit: cover;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+      margin-bottom: 25px;
+      background: #fff;
+    }
+    h1 {
+      margin-bottom: 15px;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    .info {
+      text-align: left;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+      line-height: 1.5;
+    }
+    .info strong {
+      display: inline-block;
+      width: 110px;
+    }
+    .download-btn {
+      display: inline-block;
+      background: #f1c40f;
+      color: #222;
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+    .download-btn:hover {
+      background: #d4ac0d;
+    }
+    .error {
+      font-size: 1.2rem;
+      color: #e74c3c;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="detail-card" id="detailCard">
+    <h1 id="appName">Loading...</h1>
+    <img id="appIcon" class="apk-icon" src="" alt="App Icon" />
+    <div class="info" id="appInfo"></div>
+    <a id="downloadBtn" class="download-btn" href="#" target="_blank" rel="noopener">Download</a>
+  </div>
+
+  <script>
+    function getParam(param) {
+      return new URLSearchParams(window.location.search).get(param);
+    }
+
+    const name = getParam('name');
+    const icon = getParam('icon');
+    const link = getParam('link');
+    const size = getParam('size');
+    const date = getParam('date');
+    const price = getParam('price');
+    const type = getParam('type');
+
+    const appNameEl = document.getElementById('appName');
+    const appIconEl = document.getElementById('appIcon');
+    const appInfoEl = document.getElementById('appInfo');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const detailCard = document.getElementById('detailCard');
+
+    if (!name || !icon || !link) {
+      detailCard.innerHTML = `<p class="error">Data tidak ditemukan atau link download tidak tersedia.</p>`;
+    } else {
+      appNameEl.textContent = name;
+      appIconEl.src = icon;
+      appIconEl.alt = name + ' icon';
+
+      appInfoEl.innerHTML = `
+        <p><strong>Ukuran:</strong> ${size || '-'} </p>
+        <p><strong>Update:</strong> ${date || '-'} </p>
+        <p><strong>Harga:</strong> ${price || '-'} </p>
+        <p><strong>Tipe:</strong> ${type || '-'} </p>
+      `;
+
+      downloadBtn.href = link;
+      downloadBtn.textContent = price && price.toLowerCase() === 'free' ? 'Download Gratis' : 'Download';
+    }
+  </script>
+</body>
+</html>

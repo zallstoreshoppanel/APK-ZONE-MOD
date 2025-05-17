@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>APK ZONE - Modern APK List</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #2c3e50, #34495e);
+      color: #fff;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .filter-buttons {
+      margin-bottom: 30px;
+    }
+
+    .filter-buttons button {
+      background: #2980b9;
+      border: none;
+      padding: 10px 20px;
+      margin: 0 8px;
+      color: white;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .filter-buttons button:hover,
+    .filter-buttons button.active {
+      background: #3498db;
+    }
+
+    .apk-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+      max-width: 700px;
+      width: 100%;
+    }
+
+    .apk-card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      backdrop-filter: blur(6px);
+      color: #ecf0f1;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+      display: block; /* default visible */
+    }
+
+    .apk-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .apk-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 20%;
+      object-fit: cover;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      background: #fff;
+    }
+
+    .apk-name {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #ccc;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>APK ZONE</h1>
+
+  <div class="filter-buttons">
+    <button class="active" onclick="filterCategory('all', this)">Semua</button>
+    <button onclick="filterCategory('app', this)">Aplikasi</button>
+    <button onclick="filterCategory('game', this)">Game</button>
+  </div>
+
+  <div class="apk-container" id="apkContainer">
+    <!-- Cards akan dibuat oleh JS -->
+  </div>
+
+  <footer>
+    &copy; 2025 APK ZONE. CREATED BY RIRF, VERISION WEB V1.0.
+  </footer>
+
+  <script>
+    // Data APK lengkap
+    const apks = [
+      {
+        name: "YOUTUBE PREMIUM",
+        icon: "https://getmodsapk.com/storage/Youtube-MOD-APK7.webp",
+        link: "https://getmodsapk.com/dl-track/youtube-premium-mod-free-apk/37117",
+        size: "98.1MB",
+        date: "2025-05-10",
+        price: "Free",
+        type: "app"
+      },
+      {
+        name: "KukuFm",
+        icon: "https://getmodsapk.com/storage/Kuku-FM-MOD-APK%20(2)2.webp",
+        link: "https://getmodsapk.com/dl-track/kuku-fm-mod-apk/56902",
+        size: "32MB",
+        date: "2025-04-20",
+        price: "Free",
+        type: "app"
+      },
+      {
+        name: "GOREBOX",
+        icon: "https://play-lh.googleusercontent.com/q4LqkRMQR2ViHS2_BeafVkgWWsRC-pLbvGRQV8jvH71TkbduJj4kNiD8eIpOfP2niQ=s75-rw",
+        link: "https://apkcombo.com/r2?u=https%3A%2F%2Fapks.39b7cb94d40914bac590886981b0ed6e.r2.cloudflarestorage.com%2Fcom.F2Games.GBDE%2F15.17.9%2F620.322bb1233a3eabe1d8644f63e9a44e1780e5bfa9.apks%3Fresponse-content-disposition%3Dattachment%253B%2520filename%253D%2522GoreBox_15.17.9_apkcombo.com.xapk%2522%26response-content-type%3Dapplication%252Fxapk-package-archive%26X-Amz-Algorithm%3DAWS4-HMAC-SHA256%26X-Amz-Date%3D20250517T182609Z%26X-Amz-SignedHeaders%3Dhost%26X-Amz-Expires%3D14400%26X-Amz-Credential%3D3cb727b4cd4780c410b780ac7caa4da3%252F20250517%252Fauto%252Fs3%252Faws4_request%26X-Amz-Signature%3Dd20ac77f27ec1a29c7a18ac1a3b682da875136edc179281170e5c0188c0b196d&fp=1330930f39cfe2bed41783b671f14a0c&ip=140.213.6.21&package_name=com.F2Games.GBDE",
+        size: "173MB",
+        date: "2025-03-15",
+        price: "Free",
+        type: "game"
+      },
+      {
+        name: "Sakura Simulator Mod",
+        icon: "https://getmodsapk.com/storage/Sakura%20School%20Simulator%20MOD%20APK3.webp",
+        link: "https://getmodsapk.com/dl-track/sakura-school-simulator-mod-apk/57402",
+        size: "272MB",
+        date: "2025-01-10",
+        price: "Free",
+        type: "game"
+      }
+    ];
+
+    const container = document.getElementById('apkContainer');
+
+    // Fungsi encode URL params dari objek
+    function encodeParams(obj) {
+      return Object.entries(obj)
+        .map(([key, val]) => `${encodeURIComponent(key)}=${encodeURIComponent(val)}`)
+        .join('&');
+    }
+
+    function renderCards(filter = 'all') {
+      container.innerHTML = ''; // clear dulu
+
+      apks.forEach(apk => {
+        if (filter === 'all' || apk.type === filter) {
+          const params = encodeParams({
+            name: apk.name,
+            icon: apk.icon,
+            link: apk.link,
+            size: apk.size,
+            date: apk.date,
+            price: apk.price,
+            type: apk.type
+          });
+
+          const a = document.createElement('a');
+          a.href = `detail.html?${params}`;
+          a.className = `apk-card ${apk.type}`;
+          a.innerHTML = `
+            <img src="${apk.icon}" alt="${apk.name}" class="apk-icon" />
+            <div class="apk-name">${apk.name}</div>
+          `;
+
+          container.appendChild(a);
+        }
+      });
+    }
+
+    function filterCategory(type, btn) {
+      renderCards(type);
+
+      // update tombol aktif
+      document.querySelectorAll('.filter-buttons button').forEach(button => {
+        button.classList.remove('active');
+      });
+      btn.classList.add('active');
+    }
+
+    // render default semua
+    renderCards();
+  </script>
+</body>
+</html>
